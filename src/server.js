@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import getSentiment from "./utitlities/getSentiment.js";
 
 import sentimentRoute from "./routers/sentiment.js";
 
