@@ -1,23 +1,36 @@
 const $translateForm = document.querySelector("form");
 const $textInput = document.querySelector("#textareaInput");
-const $targetLanguageInput = document.querySelector("#targetLanguageInput");
+const $sentimentIndicator = document.querySelector("#sentiment-indicator");
+
 const submitBtn = document.querySelector("#btn-submit");
-const outPutParagraph = document.querySelector(".translated-text");
+const happyEmojiUrl = "/img/happy.jpg";
+const neutralEmojiUrl = "/img/neutral.jpg";
+const sadEmojiUrl = "/img/sad.jpg";
+
+function changeImage(sentiment) {
+  if (sentiment === 1) {
+    $sentimentIndicator.src = happyEmojiUrl;
+    $sentimentIndicator.alt = "Happy emoji";
+  } else if (sentiment === 0) {
+    $sentimentIndicator.src = neutralEmojiUrl;
+    $sentimentIndicator.alt = "Neutral emoji";
+  } else {
+    $sentimentIndicator.src = sadEmojiUrl;
+    $sentimentIndicator.alt = "Sad emoji";
+  }
+}
 
 $translateForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const text = $textInput.value;
-  const target = $targetLanguageInput.value;
-
   submitBtn.textContent = "Loading...";
 
   const body = {
     text,
-    target,
   };
 
-  fetch("/api/v1/translate", {
+  fetch("/api/v1/sentiment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,9 +39,8 @@ $translateForm.addEventListener("submit", (e) => {
   })
     .then((response) => {
       return response.json().then((data) => {
-        console.log(data);
+        changeImage(data.sentiment);
         submitBtn.textContent = "Submit";
-        outPutParagraph.textContent = data.translation;
       });
     })
     .catch((err) => {

@@ -19,6 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -26,4 +27,18 @@ body {
   width: 60%;
   height: 100%;
   margin-right: 1rem;
+}
+
+.btn__styles {
+  width: 100%;
+}
+
+.img-container {
+  width: 115px;
+  height: 200px;
+  margin-top: 2rem;
+}
+
+.img-container img {
+  transition: all 0.5s;
 }
